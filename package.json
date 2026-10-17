@@ -1,0 +1,15 @@
+{
+  "name": "osi-interactivo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Laboratorio isométrico e interactivo del modelo OSI, con narración en español.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node model.test.mjs && node narration.test.mjs",
+    "build": "node build.mjs --audit && node build.mjs --dark && node package-site.mjs",
+    "check": "node check-site.mjs"
+  }
+}

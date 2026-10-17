@@ -1,0 +1,28 @@
+Model tests: PASS, all four HTTP/HTTPS request/response scenarios, all 15 stages, exact message lengths, header overhead, reversed ports and envelope/byte agreement.
+
+Geometry audit: PASS, 73 real solids, 81 independent carriage-position combinations, 0 unsupported solids, 0 sunk pairs, 0 depth-order problems, 0 mid-flight penetrations, 0 stand-in shapes.
+
+Native Chrome integration verification:
+PASS HTTPS request TCP = 95 B
+PASS HTTPS request Ethernet = 133 B
+PASS RX TCP delivers 75 B TLS
+PASS HTTP request restored = 53 B
+PASS HTTP request Ethernet = 111 B
+PASS HTTP response Ethernet = 140 B
+PASS HTTPS response Ethernet = 162 B
+PASS line ends: 0 · light · stages 0, 3, 6, 7, 11, 14 · 48 ends per stage
+PASS line ends: 0 · dark · stages 0, 3, 6, 7, 11, 14 · 48 ends per stage
+
+PASS native visual review: desktop, responsive 390px layout, 4x close-up in light and dark themes, camera controls and keyboard stage navigation.
+PASS native reduced-motion emulation after reload: automatic play disabled, manual stage selection immediately updates the layer and byte count.
+PASS embedded JavaScript syntax and absence of external rendering resources in both final HTML variants.
+Chrome console showed 0 messages after the integration interactions and reload.
+
+Headless Chrome capture was attempted and could not start (SIGABRT). The skill's actual line-end checker was therefore run against the native browser DOM through the self-contained verification page.
+
+Narration update verification:
+PASS deterministic controller tests: opt-in, Spanish/local voice priority, chosen voice and rate, cancellation, stale/duplicate callbacks, errors, startup timeout, unavailable API, all 60 stage/scenario scripts.
+PASS native Chrome with real speech synthesis: activation reaches "Narrando esta etapa…", browser indicates audio playback, completion reaches "Etapa narrada." Spanish local and online voices appear in selector. Acoustic quality was not assessed.
+PASS native DOM integration using controlled synthesis: stage holds beyond 2.8 seconds until speech ends; pause cancels and prevents more speech; manual jump speaks destination only; scenario change cancels old speech; stale completion does not advance; rate changes repeat stage; error recovery; disable cancellation; complete tour speaks all 15 stages exactly once and in order, then stops.
+PASS visual review: enabled voice panel fits 390px viewport, with readable dropdowns and full-width repeat button.
+PASS rebuilt embedded JavaScript syntax in light/dark standalone deliverables. Rendering geometry unchanged from audited original.

@@ -1,0 +1,17 @@
+import {readFileSync,writeFileSync} from 'node:fs';
+import {fileURLToPath} from 'node:url';
+import {dirname,join} from 'node:path';
+import {buildGeometry} from './geometry.mjs';
+import {createModel} from './model.mjs';
+import {createNarrator,narrationText} from './narration.mjs';
+import {ISO_CSS} from './vendor/anatomy/iso-kit.mjs';
+const here=dirname(fileURLToPath(import.meta.url));
+const audit=process.argv.includes('--audit'),dark=process.argv.includes('--dark');
+const g=buildGeometry({audit});
+const data={...g};delete data.svg;
+const template=readFileSync(join(here,'page.html'),'utf8');
+let html=template.replace('/* KIT_CSS */',()=>ISO_CSS).replace('/* APP_CSS */',()=>readFileSync(join(here,'styles.css'),'utf8')).replace('THEME_VALUE',dark?'dark':'light').replace('<!-- MACHINE_SVG -->',()=>g.svg).replace('/* MODEL_CODE */',()=>createModel.toString()).replace('/* NARRATION_CODE */',()=>narrationText.toString()+'\n'+createNarrator.toString()).replace('/* GEOMETRY_DATA */',()=>`const G=${JSON.stringify(data)};`).replace('/* LIVE_CODE */',()=>readFileSync(join(here,'app.js'),'utf8'));
+html=html.replace('</head>',()=>`<!-- Anatomy kit: third-party license\n${readFileSync(join(here,'vendor/anatomy/LICENSE'),'utf8')}-->\n</head>`);
+const name=dark?'osi-interactivo-dark.html':'osi-interactivo.html';
+writeFileSync(join(here,name),html);
+console.log(`Escrito ${name} · ${g.solidCount} sólidos · ${(Buffer.byteLength(html)/1024).toFixed(0)} KB · autónomo y sin dependencias externas.`);
